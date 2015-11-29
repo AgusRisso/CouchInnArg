@@ -1,0 +1,28 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#container-principal {
+	margin-top: 150px
+}
+
+#bienvenida {
+	text-align: center;
+	width: 300px;
+  	margin: 15px auto;
+  	padding: 25px;
+  	border: solid green 5px;
+}
+
+#list_hosp_boton {
+	text-align: center;
+	margin-top: 150px
+}
+
+h1 {
+    font-family: "Comic Sans MS", Times, serif;
+}
+
+p {
+    font-family: "Comic Sans MS", Florence, cursive;
+}

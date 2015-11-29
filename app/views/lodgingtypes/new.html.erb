@@ -1,0 +1,19 @@
+<div id = new_lod_type>
+<% if @lodgingtype.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+    <% @lodgingtype.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<h3> Nuevo Tipo de Hospedaje </h3>
+<%= form_for @lodgingtype, url: lodgingtypes_path do |f| %>
+<%= f.label :tipo %>
+<%= f.text_field :tipo, placeholder: 'Ingrese el tipo'%>
+<%= f.submit 'Guardar' %>
+<% end %>
+</div>
+
+<h1> <%= link_to "Atras", root_path %> </h1> 

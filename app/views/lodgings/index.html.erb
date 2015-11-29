@@ -1,0 +1,38 @@
+<p><h1 style="color: green"> Listado de Hospedajes </h1></p>
+
+<table class="table">
+
+	<div>
+		<tr>
+			<th> </th>
+			<th> Título </th>
+			<th> Descripción </th>
+			<th> Acción </th>
+		</tr>
+
+		<% @lodgings.each do |lodging| %>
+			<tr>	
+				<%if lodging.user.es_premium==true && user_signed_in? %>
+					<td><%=  image_tag lodging.url, size: "50x50" %></td>
+				<%else %>
+					<td> <%= image_tag "https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/home-128.png",  size: "50x50" %> </td>
+				<%end%>
+				<td> <%= lodging.titulo %> </td>
+				<td> <%= lodging.descripcion %> </td>
+				<td> <%= link_to "Más", lodging, class: 'btn btn-info btn-sm' %> </td>
+			</tr>
+		<% end %>
+
+		<% if @lodgings.size == 0 %>
+			<tr> <td colspan="3"> No hay hospedajes para mostrar </td> </tr>
+		<% end %>
+	</div>
+
+	
+</table>
+
+
+ <h1> <%= link_to "Atras", root_path %> </h1> 
+ <% if user_signed_in? %>
+ <h1> <%= link_to "Mis hospedajes", mostrar_lodging_path(@lodgings) %> </h1>
+<%end%>

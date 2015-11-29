@@ -1,0 +1,2 @@
+module ValorarHsHelper
+end

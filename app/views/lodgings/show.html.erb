@@ -1,0 +1,59 @@
+<% if user_signed_in? %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading"><HR> </label> <HEAD><h3> <li>Titulo: <%= @lodgings.titulo %></li> </h3></HEAD> <label> </HR></div>
+  <div class="panel-body">
+    <ul>
+         
+
+          <HR> <li> <%=  image_tag @lodgings.url,size: "400x300"%> </li> </HR>
+
+          <HR> <li>Descripcion del hospedaje:<%= @lodgings.descripcion %></li> </HR>
+
+          <HR> <li>Detalle del Hospedaje:<%= @lodgings.detalle  %></li> </HR>
+
+          <HR> <li>Zona:<%= @lodgings.zona%></li> </HR>
+          
+          <HR> <li>Tipo De Hospedaje:<%= @lodgings.lodgingtype.tipo%></li> </HR>
+
+          <HR> <li>Cantidad de huespedes:<%= @lodgings.cantidaddehuespedes%></li> </HR>
+          
+          <HR> <li> Puntaje <%= @lodgings.valorarHs.average(:promedio) %>
+
+          <% if current_user != @lodgings.user%>
+
+              <HR> <li> <%= link_to "Valorar", valorar_hs_path, class: 'btn btn-info btn-sm' %>
+
+             <HR> <li> <%= link_to "Reservar", edit_reserva_path(@lodgings), class: 'btn btn-success btn-sm' %>
+          <%end%>
+
+  <div>
+      <th> </th>
+       <% if @lodgings.comments.size == 0 %>
+          <h3> <p> Comentario </p> </h3>
+          <p> <td colspan="3"> No hay comentarios para mostrar </td> </p>
+      <%end%>
+
+
+    <% @lodgings.comments.each do |com| %>
+      <ul>
+        <h3> <p> Comentario </p> <h3>
+        <p> <%= com.comentario %> </p>
+        <h3> <p> Respuesta </p> <h3>
+        <p> <%= com.respuesta%> </p>
+      </ul>
+    <% end %>
+
+   
+  </div>
+
+</ul>
+
+<%else%>
+  <h3 style="color: red"> <%= "Si desea acceder al contenido del hospedaje porfavor vuelva a atras e inicie sesion o registrese" %> </h3>
+ <%end%>
+
+  </div >
+
+      <h1> <%= link_to "Atras", class: 'btn btn-info btn-sm',:controller => :lodgings, :action => :index %> <h1>
+</div>

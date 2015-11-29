@@ -1,0 +1,11 @@
+<%= form_for @lodgingtype do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+<div class="field">
+<%= f.label :tipo %>
+<%= f.text_field :tipo, placeholder: 'Ingrese el tipo' %>
+<%= f.submit 'Guardar' %>
+ </div>
+
+<% end %>
+
+<h1> <%= link_to "Atras", root_path %> </h1> 

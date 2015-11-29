@@ -1,0 +1,12 @@
+
+<h3> Reservar</h3>
+<%= form_for @reserva do |f| %>
+<%= f.label "Ingreso" %>
+<%= f.date_field :dateinit%>
+<%= f.label "Salida" %>
+<%= f.date_field :dateexit, min: :dateinit, title: "ingrese nuevo valor" %>
+<%= f.submit 'Enviar' %>
+<% end %>
+<h1> <%= link_to "Atras", lodgings_path %> </h1>
+
+

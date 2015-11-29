@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dateinit: 2015-11-28
+  dateexit: 2015-11-28
+  confirmate: false
+  lodging_id: 1
+  user_id: 1
+
+two:
+  dateinit: 2015-11-28
+  dateexit: 2015-11-28
+  confirmate: false
+  lodging_id: 1
+  user_id: 1

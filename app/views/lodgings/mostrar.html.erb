@@ -1,0 +1,40 @@
+<table class="table">
+
+	<div>
+		<tr>
+			<th> </th>
+			<th> Título </th>
+			<th> Descripción </th>
+			<th> Acción </th>
+		</tr>
+
+		<% current_user.lodgings.each do |lodging| %>
+			<tr>	
+				<%if lodging.user.es_premium==true%>
+					<td><%=  image_tag lodging.url, size: "50x50" %></td>
+				<%else %>
+					<td> <%= image_tag "https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/home-128.png",  size: "50x50" %> </td>
+				<%end%>
+				<td> <%= lodging.titulo %> </td>
+				<td> <%= lodging.descripcion %> </td>
+				<td> 
+					<%= link_to "Más", lodging, class: 'btn btn-info btn-sm' %> 
+					<%= link_to 'Editar', edit_lodging_path(lodging),  class: 'btn btn-warning btn-sm' %>
+					<%= link_to 'Eliminar', lodging, method: :delete, data: {confirm: "Esta seguro que quiere eliminar este hospedaje permanentemente ?"},  class: 'btn btn-danger btn-sm' %>
+
+				
+				</td>
+			</tr>
+		<% end %>
+
+		<% if current_user.lodgings.size == 0 %>
+			<tr> <td colspan="3"> No hay hospedajes para mostrar </td> </tr>
+		<% end %>
+	</div>
+
+</table>
+
+
+ <h1> <%= link_to "Atras", lodgings_path %> </h1> 
+
+ <h1> <%= link_to "Crear Hospedaje", new_lodging_path %> </h1>

@@ -1,0 +1,50 @@
+<table class="table">
+
+	<div>
+		<tr>
+			<th> </th>
+			<th> </th>
+			<th> </th>
+			<th> </th>
+			<th> </th>
+			<th> Tipo </th>
+			<th> Acciones </th>
+		</tr>
+		 
+			<% @lodgingtype.each do |lodgingtype| %>
+				<tr>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					
+				<%if lodgingtype.enable==false %>
+
+					 <td style="color: red"> <%= lodgingtype.tipo %> </td>
+
+					<td> 
+					<%= link_to "Recuperar", recuperar_lodgingtype_path(lodgingtype),  class: 'btn btn-danger btn-sm' %>
+					
+					</td>
+				<% else %>
+					
+					<td> <%= lodgingtype.tipo %> </td>
+
+					<td>
+					<%= link_to "Eliminar", lodgingtype, method:   :delete, :data => {:confirm => "Seguro?"}   , class: 'btn btn-danger btn-sm' %>
+					<%= link_to "Editar", edit_lodgingtype_path(lodgingtype), class: 'btn btn-info btn-sm' %>
+
+					</td>
+				<%end%>
+				</tr>
+
+		<% end %>
+		<% if @lodgingtype.size == 0 %>
+			<tr> <td colspan="3"> No hay tipos de hospedajes para mostrar </td> </tr>
+		<% end %>
+	</div>
+
+</table>
+
+<h2 style="color: blue"><%= link_to 'Atras',new_lodgingtype_path%></h2>
