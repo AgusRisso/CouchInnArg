@@ -43,9 +43,10 @@ class LodgingsController < ApplicationController
 
 def destroy
         @lodgings = Lodging.find(params[:id])
-        if @lodgings.reservas.count==0
+        if @lodgings.reservations.count==0
           if @lodgings.user == current_user
             @lodgings.destroy
+            flash[:success] = "Se elimino correctamente el hospedaje"
             redirect_to lodgings_path
           else
             redirect_to lodgings_path

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
  has_many :lodgings, dependent: :destroy
   has_many :valorarhs, dependent: :destroy
-  has_many :reservas, dependent: :destroy
+  has_many :reservations, dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

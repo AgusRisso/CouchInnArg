@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :lodgingtypes
   resources :lodgings
   resources :valorar_hs
-  resources :reservas
+  resources :reservations
   resources :premiums
   
   get '/premium' => 'premium#index'

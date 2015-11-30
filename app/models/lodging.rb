@@ -3,7 +3,7 @@ class Lodging < ActiveRecord::Base
 	belongs_to :user
 	has_many :comments, dependent: :destroy
 	has_many :valorarHs, dependent: :destroy
-	has_many :reservas, dependent: :destroy
+	has_many :reservations, dependent: :destroy
 
 	validates_presence_of :titulo, message: ":Es requerido este campo"
 	validates_uniqueness_of :titulo, message: ":Ya existe este titulo"
