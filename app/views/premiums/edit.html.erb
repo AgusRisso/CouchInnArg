@@ -1,13 +1,12 @@
 <%= form_for @user, url: premium_path(@user), html: { method: :put } do |f| %>
 <div class="field">
  <%= f.label :tarjeta %>
- <%= f.text_field :tarjeta, autofocus: true,placeholder: '1111111111111111',pattern: '^\d{16}$', title:"16 caracteres requeridos" %>
+ <%= f.text_field :tarjeta, autofocus: true,placeholder: '1111111111111111',pattern: '^\d{16}$', :required => true,title:"16 caracteres requeridos" %>
 <%= f.label "pin" %>
-<%= f.text_field :pintarjeta, autofocus: true,placeholder: '111',pattern: '^\d{3}$', title:"3 caracteres requeridos" %>
+<%= f.text_field :pintarjeta, autofocus: true,placeholder: '111',pattern: '^\d{3}$',:required => true, title:"3 caracteres requeridos" %>
 <%= f.label "dueño" %>
-<%= f.text_field :dueñotarjeta, autofocus: true,placeholder: 'ej: Pablo Gonzalez',:pattern => '^[a-zA-Z ]+$', title:"Sólo letras permitidas" %>
+<%= f.text_field :dueñotarjeta, autofocus: true,placeholder: 'ej: Pablo Gonzalez',:pattern => '^[a-zA-Z ]+$', :required => true, title:"Sólo letras permitidas" %>
 <%= f.submit 'Guardar' %>
-
  </div>
 
 <% end %>

@@ -11,4 +11,16 @@ class User < ActiveRecord::Base
     
    validates_presence_of :name, :apellido, :edad, message: ":Es requerido/a"
    
+   def self.search(start_date,end_date)
+
+   		users = User.all
+   		
+      if start_date.present? && end_date.present?
+   			users = users.where("fechapremium >= start_date AND fechapremium <= end_date")
+        @ok = 1
+   		end
+      
+      return users 
+
+   end
 end

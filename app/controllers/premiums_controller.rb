@@ -6,13 +6,21 @@ class PremiumsController < ApplicationController
 	def update
 		@user = User.find(params[:id])
 		if@user.es_premium!=true
-			@user.es_premium=true
+			r = (rand*10).to_i
+			if r > 5
+	    	  	@user.es_premium=true
+	    	  	@user.fechapremium=@user.updated_at
+	    	  	flash[:success] = "Tarjeta valida"
+	    	  	if @user.update(user_params)
+	    	  		redirect_to root_path
+   		 		else
+      				render :edit
+    			end
+			else
+				flash[:success] = "Tarjeta invalida"
+				render :edit
+			end
 		end
-   	 	if @user.update(user_params)
-    	  	redirect_to root_path
-   		 else
-      		render :edit
-    	end
 	end
 
     private

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :valorar_hs
   resources :reservations
   resources :premiums
+  resources :profit
   
   get '/premium' => 'premium#index'
   get '/nuevotipo' =>'lodgingtypes#new'

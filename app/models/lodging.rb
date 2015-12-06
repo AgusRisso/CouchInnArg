@@ -19,5 +19,27 @@ class Lodging < ActiveRecord::Base
 	validates :cantidaddehuespedes, :numericality => {:only_integer => true, message: "Solo se permiten numeros"}
 	validates_presence_of :url, message: ":Es requerido este campo"
 	
+	def self.search(search_titulo,search_cant,search_tipo_id,search_zona)
+		lodgings = Lodging.all
+
+		if search_titulo.present?
+      		lodgings = lodgings.where(["titulo LIKE ? ","%#{search_titulo}%"])
+      	end
+
+      	if search_cant.present?
+      		lodgings = lodgings.where(cantidaddehuespedes: search_cant)
+      	end
+
+      	if search_tipo_id.present?
+      		lodgings = lodgings.where(lodgingtype_id: search_tipo_id)
+      	end
+
+		if search_zona.present?
+      		lodgings = lodgings.where(["zona LIKE ? ","%#{search_zona}%"])
+      	end
+
+      	return lodgings	
+
+    end
 
 end

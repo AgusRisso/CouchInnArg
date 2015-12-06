@@ -5,6 +5,7 @@
 	 <% if current_user.es_admin==true%> 
 	 	<p> <%= link_to "Agregar un tipo de hospedaje", new_lodgingtype_path  %> </p>
 	 	<p> <%= link_to "Lista de tipos de hospedaje", lodgingtypes_path  %> </p>
+	 	<p> <%= link_to "Ver ganancia entre dos fechas", profit_index_path  %> </p>
 	 <% end %>
 	 <%if current_user.es_admin !=true%>
 	 	<%if current_user.es_premium!=true%>

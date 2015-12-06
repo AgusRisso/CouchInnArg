@@ -20,7 +20,7 @@ class LodgingsController < ApplicationController
 
 
   def index
-    @lodgings = Lodging.all
+    @lodgings = Lodging.search(params[:search_titulo], params[:search_cant], params[:search_tipo_id],params[:search_zona])
   end
 
    def edit
@@ -66,5 +66,4 @@ def destroy
   def allowed_params
     params.require(:lodging).permit(:titulo, :descripcion, :detalle, :zona, :url, :lodgingtype_id, :cantidaddehuespedes)
   end
-
 end
