@@ -10,9 +10,7 @@
 	 <%if current_user.es_admin !=true%>
 	 	<%if current_user.es_premium!=true%>
  			<p><%= link_to "Ser usuario Premium", edit_premium_path(current_user.id)%></p>
- 		<%else%>
- 		 	<p><%= link_to "Modificar mi tarjeta", edit_premium_path(current_user.id)%></p>
- 	 <%end%>
+ 	 	<%end%>
  	<%end%>
  	<p><%= link_to "Ver reservas hechas", reservations_path%>
  	<p><%= link_to "Ver Valoraciones hechas a hospedajes", valorar_hs_path%>

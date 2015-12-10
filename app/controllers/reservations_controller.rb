@@ -13,15 +13,15 @@ class ReservationsController < ApplicationController
       @mal=@reserva.dateinit >= @reserva.dateexit
       @tampoco=@reserva.dateinit < Date.today
       if (@mal==true)
-        flash[:danger] = "Error, Usted a ingresado una fecha de entrada superior/igual a la de salida"
+        flash[:danger]="Error, Usted a ingresado una fecha de entrada superior/igual a la de salida"
         redirect_to lodgings_path
       
        elsif @tampoco==true
-        flash[:danger] = "Error, usted ingreso una fecha de ingreso inferior a la actual"
+        flash[:danger]="Error, usted ingreso una fecha de ingreso inferior a la actual"
         redirect_to lodgings_path
       
         elsif (@reserva.save)
-            flash[:success] = "Se hizo el pedido de reserva"
+            flash[:success]="Se hizo el pedido de reserva"
             redirect_to lodgings_path
         else
             render 'new'          
