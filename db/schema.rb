@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205180856) do
+ActiveRecord::Schema.define(version: 20151209151707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,9 @@ ActiveRecord::Schema.define(version: 20151205180856) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lodgingtype_id"
+    t.string   "urldos"
+    t.string   "urltres"
+    t.string   "urlcuatro"
   end
 
   create_table "lodgingtypes", force: true do |t|
@@ -53,6 +56,7 @@ ActiveRecord::Schema.define(version: 20151205180856) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "rechazado",  default: false
   end
 
   create_table "users", force: true do |t|
@@ -93,6 +97,19 @@ ActiveRecord::Schema.define(version: 20151205180856) do
     t.integer  "lodging_id"
     t.float    "promedio"
     t.integer  "cantidaddevotos"
+    t.text     "comentario"
+    t.integer  "reservation_id"
+  end
+
+  create_table "valorateguests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "lodging_id"
+    t.text     "comentario"
+    t.integer  "calificacion"
+    t.integer  "reserva_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reservation_id"
   end
 
 end

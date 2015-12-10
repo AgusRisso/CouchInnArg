@@ -1,17 +1,38 @@
 
 <h3>ingrese las fechas en las cuales usted quiere visualizar la ganancias</h3>
-	<% @ok = 0%>
 	<%= form_tag profit_index_path, :method => 'get' do%>
 		Fecha Inicial :	
-		<%= @ok %>
-		<%= datetime_select("start_date", params[:start_date], prompt: true, :discard_hour => true, :discard_minute => true, :discard_second => true, :required => true) %></br>
+		<%= text_field_tag :start_date, Date.today, type:'date' %></br>
 		Fecha Final :
-		<%= datetime_select("end_date",  params[:end_date], prompt: true,  :discard_hour => true, :discard_minute => true, :discard_second => true, :required => true) %></br>
-		<%= @ok %>
+		<%= text_field_tag :end_date, Date.today, type:'date' %></br>
 		<%= submit_tag "Calcular"%>
-		<%= @ok %>
 	<%end%>
-	<% if @ok == 1%>
-		<%"Se debe realizar calculos"%>
-	<%end%>
-<h1> <%= link_to "Atras", root_path %> </h1> 
+	<% ok = 0%>
+	<% contador = 0%>
+	<% if !@users.nil?%>
+		<table clase ="table">
+		<thead>
+		<tr>
+			<th> Nombre </th>
+			<th> Apellido </th>
+			<th> Fecha en que se hizo premium </th>
+			<th> Abonó </th>
+		</tr>
+		</thead>
+		<% @users.each do |usuario|%>
+		<tr>
+			<td><%=usuario.name%></td>
+			<td><%=usuario.apellido%></td>
+			<td><%=usuario.fechapremium%></td>
+			<td><%="25$"%></td>
+			<td><% contador = contador + 25%></td>
+		</tr>
+		<% end %>
+		</table>
+	<% end %>
+	<% if @ok %>
+		<p><%="Usted en este periodo tuvo una ganancia de"%>
+		<%=contador%>
+		<%="$"%></p>
+	<% end %>
+<h1> <%= link_to "Atras", root_path,class: 'btn btn-primary btn-lg' %> </h1> 

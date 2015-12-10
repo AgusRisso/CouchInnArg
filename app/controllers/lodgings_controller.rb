@@ -8,7 +8,7 @@ class LodgingsController < ApplicationController
 
     if (@lodgings.save)
       flash[:success] = "Se creo el nuevo hospedaje"
-      redirect_to lodgings_path
+      redirect_to mostrar_lodging_path(current_user.lodgings)
     else
       render 'new'
     end
@@ -20,7 +20,14 @@ class LodgingsController < ApplicationController
 
 
   def index
-    @lodgings = Lodging.search(params[:search_titulo], params[:search_cant], params[:search_tipo_id],params[:search_zona])
+    flash.clear
+    @lodgings = Lodging.search(params[:search_titulo], params[:search_cant], params[:search_tipo_id],params[:search_zona],params[:start_date],params[:end_date])
+    if params[:search_titulo].present? || params[:search_cant].present? || params[:search_tipo_id].present? || params[:search_zona].present? || params[:start_date].present? || params[:end_date].present?
+      @ok = 1
+        if params[:start_date] >= params[:end_date]
+          flash[:success]="La fecha inicial nunca puede ser mayor o igual a la final"
+        end
+    end
   end
 
    def edit
@@ -43,17 +50,31 @@ class LodgingsController < ApplicationController
 
 def destroy
         @lodgings = Lodging.find(params[:id])
-        if @lodgings.reservations.count==0
-          if @lodgings.user == current_user
+        @rech=@lodgings.reservations.where(:rechazado => false).count
+        @conf=@lodgings.reservations.where(:confirmate => true).count
+        @confirmadasentransicion=0
+        @lodgings.reservations.each do |reserva|
+          if reserva.confirmate == true
+            if (Date.today<=reserva.dateexit)
+              @confirmadasentransicion=1
+            end
+          end
+        end
+        @rechh=@rech-@conf
+        if (@rech==0 && @conf== 0 && @confirmadasentransicion==0)
             @lodgings.destroy
             flash[:success] = "Se elimino correctamente el hospedaje"
-            redirect_to lodgings_path
-          else
-            redirect_to lodgings_path
-          end
+            redirect_to mostrar_lodging_path(current_user.lodgings)
+        elsif @confirmadasentransicion==1
+            flash[:danger] = "Este hospedaje posee reservas en transicion, no puede ser eliminado"
+            redirect_to mostrar_lodging_path(current_user.lodgings)
+        elsif (@rechh==0 && @conf!=0)
+            @lodgings.destroy
+            flash[:success] = "Se elimino correctamente el hospedaje, que posee reservas caducadas"
+            redirect_to mostrar_lodging_path(current_user.lodgings)
         else
-            flash[:danger] = "Este hospedaje posee reservas pendientes no puede ser eliminado"
-            redirect_to lodgings_path
+          flash[:danger] = "Este hospedaje posee reservas pendientes, no puede ser eliminado"
+          redirect_to mostrar_lodging_path(current_user.lodgings)
         end
     end
 
@@ -61,9 +82,17 @@ def destroy
       
     end
 
+    def reservas
+       @lodging = Lodging.find(params[:id])
+    end
+
+    def confirmadas
+       @lodging = Lodging.find(params[:id])
+    end
+
 
  private
   def allowed_params
-    params.require(:lodging).permit(:titulo, :descripcion, :detalle, :zona, :url, :lodgingtype_id, :cantidaddehuespedes)
+    params.require(:lodging).permit(:titulo, :descripcion, :detalle, :zona, :url, :urldos, :urltres, :urlcuatro, :lodgingtype_id, :cantidaddehuespedes)
   end
 end

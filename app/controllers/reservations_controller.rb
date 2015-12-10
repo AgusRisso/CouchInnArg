@@ -1,5 +1,6 @@
 class ReservationsController < ApplicationController
 	def index
+     @reservas=Reservation.all
 	end
 	def show
 	end
@@ -9,10 +10,10 @@ class ReservationsController < ApplicationController
       @reserva.user = current_user
       @reserva.lodging = $hospedaje
       @reserva.confirmate=false
-      @mal=@reserva.dateinit > @reserva.dateexit
+      @mal=@reserva.dateinit >= @reserva.dateexit
       @tampoco=@reserva.dateinit < Date.today
       if (@mal==true)
-        flash[:danger] = "Error, Usted a ingresado una fecha de entrada superior a la de salida"
+        flash[:danger] = "Error, Usted a ingresado una fecha de entrada superior/igual a la de salida"
         redirect_to lodgings_path
       
        elsif @tampoco==true
@@ -30,6 +31,17 @@ class ReservationsController < ApplicationController
 	def new
 
 	end
+
+  def actualizar
+    reserva = Reservation.find(params[:id])
+    reserva.confirmate=params[:confirmate]
+    reserva.rechazado=params[:rechazado]
+    if reserva.save
+      redirect_to mostrar_lodging_path
+    else
+      redirect_to reservas_lodging_path
+    end
+  end
 
 	def update
 	end

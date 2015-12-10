@@ -1,4 +1,4 @@
-<p><div id=list_hosp_boton><%= link_to "Ver listado de hospedajes", lodgings_path,class: 'btn btn-success btn-sm'%></p></div>
+<p><div id=list_hosp_boton><%= link_to "Ver listado de hospedajes", lodgings_path,class: 'btn btn-success btn-lg'%></p></div>
 <div id="bienvenida">
 <% if user_signed_in? %>
 	 Bienvenido <%= current_user.email %>
@@ -14,11 +14,17 @@
  		 	<p><%= link_to "Modificar mi tarjeta", edit_premium_path(current_user.id)%></p>
  	 <%end%>
  	<%end%>
+ 	<p><%= link_to "Ver reservas hechas", reservations_path%>
+ 	<p><%= link_to "Ver Valoraciones hechas a hospedajes", valorar_hs_path%>
+	<p><%= link_to "Ver Valoraciones recibidas a mis hospedajes", hospedajes_valoracionhospedajerecibida_path%>
+	<p><%= link_to "Ver calificaciones recibidas", valorateguests_path%>
+
+ 	<p> <%= link_to "Mis hospedajes", mostrar_lodging_path(current_user.lodgings) %> </p>
  	<p><%= link_to "Modificar perfil",edit_user_registration_path%>
 	<p><%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete %></p>
 <% else %>
-	<p><%= link_to "Crea una cuenta", new_user_registration_path, class: 'btn btn-success btn-sm' %></p>
-	<p><%= link_to "Logueate", new_user_session_path,  class: 'btn btn-success btn-sm' %></p>
+	<p><%= link_to "Crea una cuenta", new_user_registration_path, class: 'btn btn-success btn-lg' %></p>
+	<p><%= link_to "Logueate", new_user_session_path,  class: 'btn btn-success btn-lg' %></p>
 <%end%>
 </div>
 

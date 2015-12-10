@@ -19,7 +19,7 @@ class Lodging < ActiveRecord::Base
 	validates :cantidaddehuespedes, :numericality => {:only_integer => true, message: "Solo se permiten numeros"}
 	validates_presence_of :url, message: ":Es requerido este campo"
 	
-	def self.search(search_titulo,search_cant,search_tipo_id,search_zona)
+	def self.search(search_titulo,search_cant,search_tipo_id,search_zona,start_date,end_date)
 		lodgings = Lodging.all
 
 		if search_titulo.present?
@@ -38,8 +38,35 @@ class Lodging < ActiveRecord::Base
       		lodgings = lodgings.where(["zona LIKE ? ","%#{search_zona}%"])
       	end
 
-      	return lodgings	
+      	result = [] # En result agregaremos los hospedajes libres
+    	lodgings.each do |lodging|
+      		result << lodging if lodging.is_free?(start_date,end_date) # Agregamos el hospedaje si está libre
+    	end
+
+      	return result	
 
     end
 
+  	# Recibe como parámetros las fechas en las que se busca 
+  	# que esté libre el couch
+    def is_free?(start_date,end_date)
+    	reservas_del_couch = self.reservations # reservas del couch (por el has_many)
+    	reservas_confirmadas = reservas_del_couch.confirmate # solo miramos las confirmadas
+    	reservas_confirmadas = reservas_confirmadas.where('? < dateexit', start_date) # from se copiaría en el lugar de '?'
+    	reservas_confirmadas = reservas_confirmadas.where('? > dateinit', end_date) # to se copiaría en el lugar de '?'
+    
+    	# Retorno true o false si el resultado de lo anterior 
+    	# está vacío o no
+    	return reservas_confirmadas.empty?
+    end
+
+    # Retorna los couches que están libres entre 2 fechas
+  	# Por una cuestión de simplicidad se realiza iterando sobre 
+  	# sobre los couches
+  	def self.free_couches(from, to)
+    	result = [] # En result agregaremos los hospedajes libres
+    	Couch.all.each do |couch|
+      		result << couch if couch.is_free?(from, to) # Agregamos el hospedaje si está libre
+    	end
+  	end
 end

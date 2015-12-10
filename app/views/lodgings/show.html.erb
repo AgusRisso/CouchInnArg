@@ -3,11 +3,61 @@
   <div class="panel panel-default">
     <div class="panel-heading"><HR> </label> <HEAD><h3> <li>Titulo: <%= @lodgings.titulo %></li> </h3></HEAD> <label> </HR></div>
   <div class="panel-body">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <%=  image_tag @lodgings.url,size: "500x400"  %>
+        <div class="carousel-caption">
+        </div>
+      </div>
+
+      <% if !@lodgings.urldos.blank? %>
+        <div class="item">
+         <%=  image_tag @lodgings.urldos,size: "500x400"  %>
+         <div class="carousel-caption">
+          </div>
+       </div>
+      <% end %>
+
+      <% if !@lodgings.urltres.blank? %>
+        <div class="item">
+         <%=  image_tag @lodgings.urltres,size: "500x400"  %>
+         <div class="carousel-caption">
+          </div>
+       </div>
+      <% end %>
+      <% if !@lodgings.urlcuatro.blank? %>
+        <div class="item">
+         <%=  image_tag @lodgings.urlcuatro,size: "500x400"  %>
+         <div class="carousel-caption">
+          </div>
+       </div>
+      <% end %>
+
+
+      </div>
+
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+
+  </div> <!-- Carousel -->
+
     <ul>
-         
-
-          <HR> <li> <%=  image_tag @lodgings.url,size: "400x300"%> </li> </HR>
-
           <HR> <li>Descripcion del hospedaje:<%= @lodgings.descripcion %></li> </HR>
 
           <HR> <li>Detalle del Hospedaje:<%= @lodgings.detalle  %></li> </HR>
@@ -20,11 +70,11 @@
           
           <HR> <li> Puntaje <%= @lodgings.valorarHs.average(:promedio) %>
 
-          <% if current_user != @lodgings.user%>
+           <% if current_user != @lodgings.user%>
 
-              <HR> <li> <%= link_to "Valorar", valorar_hs_path, class: 'btn btn-info btn-sm' %>
-
-             <HR> <li> <%= link_to "Reservar", edit_reservation_path(@lodgings), class: 'btn btn-success btn-sm' %>
+              <% if (current_user.reservations.where(:lodging_id=>@lodgings).count==0) || (current_user.reservations.where(:lodging_id=>@lodgings).last.rechazado==true) || ((current_user.reservations.where(:lodging_id=>@lodgings).last.dateexit<=Date.today) && (current_user.reservations.where(:lodging_id=>@lodgings).last.confirmate==true)) %>
+                  <HR> <li> <%= link_to "Reservar", edit_reservation_path(@lodgings), class: 'btn btn-success btn-sm' %>
+              <%end%>
           <%end%>
 
   <div>
@@ -55,5 +105,6 @@
 
   </div >
 
-      <h1> <%= link_to "Atras", class: 'btn btn-info btn-sm',:controller => :lodgings, :action => :index %> <h1>
+      <h1> <%= link_to "Atras", class: 'btn btn-info btn-lg',:controller => :lodgings, :action => :index %> <h1>
 </div>
+

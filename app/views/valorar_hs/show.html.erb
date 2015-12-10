@@ -1,0 +1,11 @@
+<h2>Puntaje Dado:</h2>
+	<p> </p>
+	<p> <h3><%= @valorar.promedio %></h3> </p>
+
+<h2>Comentario asociado:</h2>
+	<p> </p>
+	<p> <h3><%= @valorar.comentario %></h3> </p>
+
+<h2 style="color: blue"><%= link_to 'Volver a valoraciones dadas a hospedajes', valorar_hs_path%></h2>
+
+<h2 style="color: red"><%= link_to 'Volver a valoraciones recibidas a hospedajes', hospedajes_valoracionhospedajerecibida_path, {style: "color: blue"}  %></h2>

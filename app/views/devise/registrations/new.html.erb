@@ -1,5 +1,5 @@
 <div id=Sign_up>
-<h1 style="color: blue">Sign up</h1>
+<h1 style="color: blue">Registrate</h1>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -39,7 +39,7 @@
   <%= f.number_field :telefono, autofocus: true,placeholder: '221876432' %></div>
 
   <div class="actions">
-    <%= f.submit "Sign up", class: 'btn btn-primary btn-sm' %>
+    <%= f.submit "Registrar", class: 'btn btn-primary btn-lg' %>
   </div>
 <% end %>
 

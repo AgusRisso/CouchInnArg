@@ -1,0 +1,50 @@
+
+  <table class="table">
+  
+    <div>
+    <tr>
+
+      <th></th>
+      <th> Hospedaje </th>
+      <th> Acciones </th>
+    </tr>
+     
+      <% current_user.reservations.each do |reserva| %>
+        <tr>
+ 
+        
+        <% if !reserva.lodging.nil? %>
+        <% if reserva.rechazado==false %>
+         <%if reserva.lodging.user.es_premium==true && user_signed_in? %>
+          <td><%=  image_tag reserva.lodging.url, size: "50x50" %></td>
+        <%else %>
+          <td> <%= image_tag "https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/home-128.png",  size: "50x50" %> </td>
+        <%end%>
+          <td> <%= reserva.lodging.titulo %> </td>
+
+          <td> <%= link_to "Ver Hospedaje", reserva.lodging, class: 'btn btn-info btn-sm' %> 
+
+              <% if ValorarH.where(user: current_user, lodging: reserva.lodging).empty? %>
+              <%if reserva.dateexit<=Date.today%>
+               <% if reserva.confirmate==true  %>
+                  <%= link_to "Valorar", edit_valorar_h_path(reserva.lodging), class: 'btn btn-info btn-sm' %>
+               <% end %> 
+               <% end %>
+               <% end %>
+          </td>
+
+        <% end %>
+        
+        </tr>
+    <% end %> 
+    <% end %>
+    <% if current_user.reservations.size == 0 %>
+      <tr> <td colspan="3"> No hay reservas para mostrar </td> </tr>
+    <% end %>
+  </div>
+
+</table>
+
+
+
+<h1> <%= link_to "Atras",root_path , class: 'btn btn-info btn-lg'%> <h1>

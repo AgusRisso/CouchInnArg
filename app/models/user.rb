@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
- has_many :lodgings, dependent: :destroy
-  has_many :valorarhs, dependent: :destroy
+  has_many :lodgings, dependent: :destroy
+  has_many :valorarHs, dependent: :destroy
   has_many :reservations, dependent: :destroy
+  has_many :valorateguests, dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -13,11 +14,10 @@ class User < ActiveRecord::Base
    
    def self.search(start_date,end_date)
 
-   		users = User.all
+   		users = nil
    		
-      if start_date.present? && end_date.present?
-   			users = users.where("fechapremium >= start_date AND fechapremium <= end_date")
-        @ok = 1
+      if !start_date.blank? && !end_date.blank?
+   			users = User.where(["fechapremium BETWEEN ? AND ?",start_date,end_date])
    		end
       
       return users 

@@ -1,23 +1,26 @@
 <p><h1 style="color: green"> Listado de Hospedajes </h1></p>
 
 <div>
+		<% ok = 0 %>
 		<%= form_tag lodgings_path, :method => 'get' do%>
-			<%= "Título"%>
-			<%= text_field_tag :search_titulo, params[:search_titulo], placeholder: "Búsqueda por título" %>
-			<%= "Cantidad de personas"%>
-			<%= text_field_tag :search_cant, params[:search_cant], placeholder: "Búsqueda por cantidad de personas" %>
-			<%= "Zona"%>
-			<%= text_field_tag :search_zona, params[:search_zona], placeholder: "Búsqueda por zona" %>
-			<%= "Tipo de hospedaje"%>
-			<%= select_tag :search_tipo_id, options_from_collection_for_select(Lodgingtype.all, 'id', 'tipo', params[:search_tipo_id]), include_blank: true %>
-			<%= submit_tag "Buscar"%>
+			
+			<p><%= "Título:"%>
+			<%= text_field_tag :search_titulo, params[:search_titulo], placeholder: "Búsqueda por título" %></p>
+			<p><%= "Cantidad de personas:"%>
+			<%= text_field_tag :search_cant, params[:search_cant], placeholder: "Búsqueda por cantidad de personas" %></p>
+			<p><%= "Zona:"%>
+			<%= text_field_tag :search_zona, params[:search_zona], placeholder: "Búsqueda por zona" %></p>
+			<p><%="Fecha Inicial:"%>             	
+			<%= text_field_tag :start_date, Date.today, type:'date' %></p>
+			<p><%="Fecha Final:"%> 
+			<%= text_field_tag :end_date, Date.today, type:'date' %></p>
+			<p><%= "Tipo de hospedaje:"%>
+			<%= select_tag :search_tipo_id, options_from_collection_for_select(Lodgingtype.all, 'id', 'tipo', params[:search_tipo_id]), include_blank: true %></p>
+			<%= submit_tag "Buscar",class: 'btn btn-success btn-lg'%>
 		<% end %>
 	</div>
 
 <table class="table">
-
-	
-
 		<tr>
 			<th> </th>
 			<th> Título </th>
@@ -45,9 +48,7 @@
 
 	
 </table>
-
- <h1> <%= link_to "Hospedajes", lodgings_path %> </h1> 
- <h1> <%= link_to "Pagina principal", root_path %> </h1> 
- <% if user_signed_in? %>
- <h1> <%= link_to "Mis hospedajes", mostrar_lodging_path(@lodgings) %> </h1>
-<%end%>
+ <% if @ok%>
+ 	<h1> <%= link_to "Hospedajes", lodgings_path,  class: 'btn btn-success btn-lg'%> </h1> 
+ <%end%>
+ <h1> <%= link_to "Pagina principal", root_path ,class: 'btn btn-primary btn-lg'%> </h1> 

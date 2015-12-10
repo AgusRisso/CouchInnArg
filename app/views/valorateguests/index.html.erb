@@ -1,0 +1,43 @@
+<table class="table">
+  
+    <div>
+    <tr>
+      <th> </th>
+      <th> Hospedaje </th>
+      <th> Valoracion </th>
+      <th> </th>
+    </tr>
+     
+      <% current_user.valorateguests.each do |valorar| %>
+        <tr>
+ 
+        
+        <% if !valorar.lodging.nil? %>
+          
+         <%if valorar.lodging.user.es_premium==true && user_signed_in? %>
+          <td><%=  image_tag valorar.lodging.url, size: "50x50" %></td>
+        <%else %>
+          <td> <%= image_tag "https://cdn4.iconfinder.com/data/icons/pictype-free-vector-icons/16/home-128.png",  size: "50x50" %> </td>
+        <%end%>
+          <td> <%= valorar.lodging.titulo %> </td>
+
+          <td> <%= link_to "Ver Hospedaje", valorar.lodging, class: 'btn btn-info btn-sm' %> 
+
+               <%= link_to "Ver Calificacion", valorar, class: 'btn btn-success btn-sm' %>
+          </td>
+
+        <% end %>
+        
+        </tr>
+
+    <% end %>
+    <% if current_user.valorateguests.size == 0 %>
+      <tr> <td colspan="3"> No hay valoraciones para mostrar </td> </tr>
+    <% end %>
+  </div>
+
+</table>
+
+
+
+<h1> <%= link_to "Atras",root_path , class: 'btn btn-info btn-sm'%> <h1>

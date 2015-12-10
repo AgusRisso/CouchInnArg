@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   resources :reservations
   resources :premiums
   resources :profit
-  
+  resources :valorateguests
+
   get '/premium' => 'premium#index'
   get '/nuevotipo' =>'lodgingtypes#new'
   get '/vertipos'=> 'lodgingtypes#index'
@@ -14,6 +15,20 @@ Rails.application.routes.draw do
   get '/verhospedaje/:id'=> 'lodgings#show'
   get '/lodgingtypes/recuperar/:id' => 'lodgingtypes#recuperar'
   get '/hospedajes/mostrar' => 'lodgings#mostrar'
+  get '/hospedajes/valoracionhospedajerecibida' => 'valorar_hs#valoracionhospedajerecibida'
+
+  resources :valorar_hs do
+  
+    get 'valoracionhospedajerecibida', on: :member
+
+  end
+
+  
+  resources :reservations do
+
+    get 'actualizar', on: :member
+
+  end
 
   resources :lodgingtypes do
  
@@ -23,7 +38,9 @@ Rails.application.routes.draw do
 
   resources :lodgings do
 
+    get 'confirmadas', on: :member
     get 'mostrar', on: :member
+    get 'reservas', on: :member
 
   end
 

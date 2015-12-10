@@ -1,0 +1,37 @@
+<table class="table">
+
+	<div>
+		<tr>
+			<th> Solicitante </th>
+			<th> Fecha de Ingreso </th>
+			<th> Fecha de Salida </th>
+			<th> </th>
+		</tr>
+
+		<% @lodging.reservations.each do |reservation| %>
+			<%if reservation.confirmate==true%>
+				<tr>	
+				<td><%=  reservation.user.name %></td>
+				<td> <%= reservation.dateinit %> </td>
+				<td> <%= reservation.dateexit %> </td>
+				<%if reservation.dateexit<=Date.today%>
+					<%if Valorateguest.where(user: reservation.user, reservation: reservation ).empty?%>
+					<td> 
+						<%= link_to "Valorar Huesped", edit_valorateguest_path(@lodging, us:reservation.user_id, r: reservation), class: 'btn btn-info btn-sm' %> 		
+					</td>
+					<%else%>
+					<td> ya se valoro</td>
+					<%end%>
+					</tr>
+				<%end%>
+				
+			<%end%>
+		<% end %>
+
+		<% if @lodging.reservations.where(:confirmate=>true).size == 0 %>
+			<tr> <td colspan="3"> No hay reservas confirmadas para mostrar </td> </tr>
+		<% end %>
+	</div>
+
+</table>
+<h1> <%= link_to "Atras", mostrar_lodging_path ,class: 'btn btn-primary btn-lg'%> </h1>

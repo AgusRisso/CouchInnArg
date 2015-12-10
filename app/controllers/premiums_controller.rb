@@ -9,7 +9,7 @@ class PremiumsController < ApplicationController
 			r = (rand*10).to_i
 			if r > 5
 	    	  	@user.es_premium=true
-	    	  	@user.fechapremium=@user.updated_at
+	    	  	@user.fechapremium=Date.today
 	    	  	flash[:success] = "Tarjeta valida"
 	    	  	if @user.update(user_params)
 	    	  		redirect_to root_path

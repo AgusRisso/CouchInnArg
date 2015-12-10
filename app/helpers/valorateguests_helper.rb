@@ -1,0 +1,2 @@
+module ValorateguestsHelper
+end
